@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#001731">
+  <title>WSB Student Persona Activity | WGU</title>
+  <style>
+    :root {
+      --navy: #001731;
+      --blue: #002855;
+      --sky: #46b1ef;
+      --green: #97e142;
+      --ice: #eef6f9;
+      --white: #ffffff;
+      --ink: #172337;
+      --muted: #526173;
+      --line: #d7e3e9;
+      --shadow: 0 16px 42px rgba(0, 23, 49, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 100% 0, rgba(70,177,239,.18), transparent 30rem),
+        linear-gradient(160deg, #edf7fb 0, #fff 58%, #f5faed 100%);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    .topbar {
+      height: 10px;
+      background: linear-gradient(90deg, var(--sky) 0 74%, var(--green) 74%);
+    }
+
+    .page {
+      width: min(960px, calc(100% - 32px));
+      margin: 32px auto;
+      overflow: hidden;
+      border-radius: 24px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 42px clamp(24px, 7vw, 70px) 38px;
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -65px;
+      bottom: -115px;
+      width: 290px;
+      height: 290px;
+      border: 34px solid rgba(70,177,239,.19);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 12px;
+      color: var(--green);
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 23px;
+      height: 4px;
+      border-radius: 99px;
+      background: var(--green);
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      line-height: 1.06;
+    }
+
+    .hero p:last-child {
+      position: relative;
+      z-index: 1;
+      max-width: 710px;
+      margin: 17px 0 0;
+      color: #dcecf4;
+      font-size: 1.06rem;
+    }
+
+    .content { padding: 26px clamp(16px, 5vw, 52px) 48px; }
+
+    .choose {
+      margin: 0 0 22px;
+      padding: 16px 18px;
+      border: 1px solid #bee0ee;
+      border-left: 7px solid var(--sky);
+      border-radius: 12px;
+      background: #f5fbfe;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .quick-nav button {
+      min-height: 48px;
+      padding: 10px 12px;
+      border: 2px solid var(--blue);
+      border-radius: 11px;
+      color: var(--blue);
+      background: var(--white);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .quick-nav button:hover,
+    .quick-nav button:focus-visible {
+      color: var(--white);
+      background: var(--blue);
+      outline: 3px solid rgba(70,177,239,.4);
+      outline-offset: 2px;
+    }
+
+    details {
+      margin: 14px 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: var(--white);
+      box-shadow: 0 7px 20px rgba(0, 23, 49, .06);
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 74px;
+      padding: 16px 20px;
+      color: var(--white);
+      background: var(--blue);
+      font-size: 1.15rem;
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-left: auto;
+      border: 2px solid rgba(255,255,255,.65);
+      border-radius: 50%;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    details[open] summary::after { content: "−"; }
+    summary:hover { background: #073e76; }
+    summary:focus-visible { outline: 4px solid var(--sky); outline-offset: -4px; }
+
+    .summary-icon {
+      flex: 0 0 42px;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      color: var(--navy);
+      background: var(--green);
+      font-size: .88rem;
+      font-weight: 900;
+    }
+
+    .panel-content { padding: 26px clamp(18px, 5vw, 42px) 36px; }
+
+    .time-callout {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 15px 17px;
+      border-radius: 12px;
+      background: var(--ice);
+    }
+
+    .time {
+      flex: 0 0 48px;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: var(--navy);
+      background: var(--green);
+      font-weight: 900;
+    }
+
+    .time-callout p { margin: 0; }
+
+    .steps { display: grid; gap: 15px; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 13px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      color: var(--white);
+      background: var(--blue);
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .step h2 { margin: 1px 0 7px; color: var(--blue); font-size: 1.08rem; line-height: 1.25; }
+    .step p { margin: 0; }
+    .step ul { margin: 0; padding-left: 21px; }
+    .step li + li { margin-top: 6px; }
+
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 10px 0;
+    }
+
+    .service {
+      padding: 6px 10px;
+      border: 1px solid #bddbe7;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--ice);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .persona-head {
+      display: grid;
+      grid-template-columns: 155px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .portrait {
+      width: 155px;
+      height: 155px;
+      overflow: hidden;
+      border: 4px solid #d7eaf2;
+      border-radius: 24px;
+      background: #dceef5;
+    }
+
+    .portrait svg { display: block; width: 100%; height: 100%; }
+    .persona-label { margin: 0 0 5px; color: #187097; font-size: .76rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .persona-head h2 { margin: 0; color: var(--navy); font-size: clamp(1.8rem, 5vw, 2.7rem); line-height: 1.05; }
+    .program { margin: 9px 0 0; color: var(--muted); font-weight: 700; }
+    .course { display: inline-block; margin-top: 11px; padding: 6px 10px; border-radius: 999px; color: var(--navy); background: var(--ice); font-size: .83rem; font-weight: 800; }
+
+    blockquote {
+      margin: 0 0 24px;
+      padding: 20px 22px;
+      border-radius: 14px;
+      color: var(--white);
+      background: #126c8d;
+      box-shadow: inset 6px 0 0 var(--sky);
+      font-size: 1.12rem;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .fact { padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: #fbfdfe; }
+    .fact-label { display: block; color: var(--muted); font-size: .7rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .fact-value { display: block; margin-top: 3px; color: var(--blue); font-weight: 800; }
+
+    .section { margin-top: 25px; }
+    .section h3 { display: flex; align-items: center; gap: 9px; margin: 0 0 10px; color: var(--blue); font-size: 1.15rem; }
+    .section h3::before { content: ""; width: 8px; height: 22px; border-radius: 99px; background: var(--sky); }
+    .section p { margin: 0; }
+    .section ul { margin: 0; padding-left: 22px; }
+    .section li + li { margin-top: 7px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+    .mini-panel { padding: 18px; border: 1px solid #c7e0ea; border-radius: 14px; background: var(--ice); }
+    .mini-panel.strengths { border-color: #d5eab6; background: #f7fced; }
+    .mini-panel h3 { margin: 0 0 9px; color: var(--blue); font-size: 1.04rem; }
+    .mini-panel ul { margin: 0; padding-left: 20px; }
+    .mini-panel li + li { margin-top: 6px; }
+
+    .task {
+      margin-top: 26px;
+      padding: 16px 17px;
+      border-left: 7px solid var(--green);
+      border-radius: 11px;
+      color: var(--navy);
+      background: #f8fced;
+      font-weight: 700;
+    }
+
+    .back-row { display: flex; justify-content: center; padding-top: 23px; }
+    .back-row button { padding: 9px 14px; border: 0; border-radius: 999px; color: var(--white); background: var(--blue); font: inherit; font-size: .88rem; font-weight: 800; cursor: pointer; }
+    .back-row button:hover, .back-row button:focus-visible { background: #073e76; outline: 3px solid rgba(70,177,239,.4); }
+
+    footer { padding: 18px; text-align: center; color: var(--muted); background: #f7f9fa; font-size: .82rem; }
+
+    @media (max-width: 650px) {
+      .page { width: 100%; margin: 0; border-radius: 0; }
+      .hero { padding-top: 31px; }
+      .content { padding-top: 20px; }
+      .quick-nav { grid-template-columns: 1fr; }
+      summary { min-height: 68px; padding: 13px 14px; font-size: 1.03rem; }
+      .summary-icon { width: 39px; height: 39px; }
+      .panel-content { padding: 21px 16px 30px; }
+      .persona-head { grid-template-columns: 112px 1fr; gap: 16px; }
+      .portrait { width: 112px; height: 128px; border-radius: 19px; }
+      .facts, .two-col { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 38px 1fr; padding: 15px 12px; }
+      .number { width: 38px; height: 38px; }
+    }
+
+    @media (max-width: 405px) {
+      .persona-head { grid-template-columns: 1fr; }
+      .portrait { width: 120px; height: 120px; }
+    }
+
+    @media print {
+      body { background: white; }
+      .topbar, .quick-nav, .back-row { display: none; }
+      .page { width: 100%; margin: 0; box-shadow: none; }
+      details { break-inside: avoid; }
+      details:not([open]) > *:not(summary) { display: block; }
+      summary, .hero, blockquote { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" aria-hidden="true"></div>
+  <main class="page" id="top">
+    <header class="hero">
+      <p class="eyebrow">WGU Academic Services</p>
+      <h1>Turn a Student Challenge into a Success Story</h1>
+      <p>Review the activity instructions, open your assigned persona, and work with your group to build a thoughtful Academic Services referral plan.</p>
+    </header>
+
+    <div class="content">
+      <p class="choose">Tap or click a section below to expand it. </p>
+
+      <nav class="quick-nav" aria-label="Page sections">
+        <button type="button" data-open="instructions">Instructions</button>
+        <button type="button" data-open="persona-1">Persona 1: Elena</button>
+        <button type="button" data-open="persona-2">Persona 2: Devin</button>
+      </nav>
+
+      <details id="instructions" open>
+        <summary><span class="summary-icon" aria-hidden="true">1–5</span>Activity Instructions</summary>
+        <div class="panel-content">
+          <div class="time-callout">
+            <div class="time" aria-hidden="true">10</div>
+            <p>You will have <strong>10 minutes</strong> to complete the activity. Be ready to share the support you selected and the reasoning behind your choices.</p>
+          </div>
+
+          <div class="steps">
+            <section class="step">
+              <div class="number" aria-hidden="true">1</div>
+              <div>
+                <h2>Meet Your Student Persona</h2>
+                <ul>
+                  <li>Open the persona assigned to your side of the room.</li>
+                  <li>Review the student’s background, goals, current behaviors, strengths, and pain points.</li>
+                  <li>Identify the student’s most important needs before discussing a referral.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="step">
+              <div class="number" aria-hidden="true">2</div>
+              <div>
+                <h2>Explore WGU Academic Service Lines</h2>
+                <p>Use the <strong>QR codes displayed on the screen</strong> to review the resources and tools offered by:</p>
+                <div class="services" aria-label="Academic service lines">
+                  <span class="service">Academic Coaching</span>
+                  <span class="service">Peer Navigating</span>
+                  <span class="service">WGU Connect</span>
+                </div>
+                <p>Look for <strong>specific services, resources, or tools</strong> that align with your student’s needs, not simply the service you know best.</p>
+              </div>
+            </section>
+
+            <section class="step">
+              <div class="number" aria-hidden="true">3</div>
+              <div>
+                <h2>Apply Your Expertise</h2>
+                <ul>
+                  <li>What do you know about students experiencing challenges like these?</li>
+                  <li>What might be underneath the behavior described in the persona?</li>
+                  <li>Which support could have the greatest immediate impact and why?</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="step">
+              <div class="number" aria-hidden="true">4</div>
+              <div>
+                <h2>Build a Personalized Support Plan</h2>
+                <ul>
+                  <li>How can the support build on the student’s strengths?</li>
+                  <li>How will it address the student’s specific challenge?</li>
+                  <li>How could it strengthen motivation, engagement, connection, or belonging?</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="step">
+              <div class="number" aria-hidden="true">5</div>
+              <div>
+                <h2>Share Your Recommendation</h2>
+                <p>Select a spokesperson. Your group will have <strong>2 minutes</strong> to present what stood out to you the most about your student, name the supports you recommend, and explain how they address the student’s needs.</p>
+              </div>
+            </section>
+          </div>
+          <div class="back-row"><button type="button" data-top>Back to section choices</button></div>
+        </div>
+      </details>
+
+      <details id="persona-1">
+        <summary><span class="summary-icon" aria-hidden="true">P1</span>Persona 1: Elena Rodriguez</summary>
+        <div class="panel-content">
+          <div class="persona-head">
+            <div class="portrait">
+              <svg viewBox="0 0 200 200" role="img" aria-label="Illustrated portrait of Elena">
+                <rect width="200" height="200" fill="#d9eef5"/><circle cx="156" cy="35" r="56" fill="#97e142" opacity=".38"/><path d="M28 206c4-47 29-72 72-72s68 25 72 72" fill="#24789a"/><ellipse cx="100" cy="85" rx="47" ry="55" fill="#633e2c"/><ellipse cx="100" cy="91" rx="38" ry="46" fill="#c98562"/><path d="M62 77c4-32 20-49 43-49 30 0 44 24 41 61-12-5-23-17-29-31-12 15-32 27-55 29z" fill="#2f201c"/><circle cx="86" cy="90" r="3" fill="#251a18"/><circle cx="116" cy="90" r="3" fill="#251a18"/><path d="M89 111c8 7 16 7 24 0" fill="none" stroke="#7b3f3e" stroke-width="3" stroke-linecap="round"/><path d="M52 177c18-18 32-25 48-25s31 7 49 25" fill="#46b1ef"/><circle cx="39" cy="143" r="18" fill="#fff" opacity=".7"/>
+              </svg>
+            </div>
+            <div>
+              <p class="persona-label">Student Persona 1</p>
+              <h2>Elena Rodriguez</h2>
+              <p class="program">B.S. Healthcare Administration</p>
+              <span class="course">Introductory Accounting Course</span>
+            </div>
+          </div>
+
+          <blockquote>“I can follow the example while the video is playing, but when I try a practice problem by myself, I don’t know where to begin. Then I start the whole module over again.”</blockquote>
+
+          <div class="facts">
+            <div class="fact"><span class="fact-label">Age</span><span class="fact-value">36</span></div>
+            <div class="fact"><span class="fact-label">Term</span><span class="fact-value">First term</span></div>
+            <div class="fact"><span class="fact-label">Occupation</span><span class="fact-value">Patient services supervisor</span></div>
+          </div>
+
+          <section class="section">
+            <h3>Background and Story</h3>
+            <p>Elena works full-time at a medical clinic and is raising two school-age children with her spouse. She enrolled at WGU to prepare for an operations leadership role in healthcare. She moved quickly through her first courses, but accounting is the first subject that has made her question whether she can succeed in the program. She is comfortable asking questions at work, yet she feels embarrassed that the course is not “clicking” as quickly as she expected.</p>
+          </section>
+
+          <div class="two-col">
+            <section class="mini-panel">
+              <h3>Goals and Needs</h3>
+              <ul>
+                <li>Understand how to begin and organize an accounting problem.</li>
+                <li>Connect concepts to realistic business examples.</li>
+                <li>Prepare for an assessment planned in nine days.</li>
+                <li>Rebuild confidence through visible progress.</li>
+              </ul>
+            </section>
+            <section class="mini-panel strengths">
+              <h3>Strengths to Build On</h3>
+              <ul>
+                <li>Consistent study time four evenings each week.</li>
+                <li>Strong attention to detail in her professional role.</li>
+                <li>Willing to practice when she knows what to practice.</li>
+                <li>Motivated by a clear career goal.</li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="section">
+            <h3>What Elena Is Doing Now</h3>
+            <ul>
+              <li>Rewatches complete course videos and rereads entire lessons after missing practice questions.</li>
+              <li>Highlights definitions but rarely works problems without looking at an example.</li>
+              <li>Can explain a concept during a lesson, but struggles to choose the correct process independently.</li>
+              <li>Has not talked through a practice problem with another person because she thinks she should be able to figure it out alone.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h3>Pain Points</h3>
+            <ul>
+              <li><strong>Application gap:</strong> Understands explanations in the moment but cannot transfer them to a new problem.</li>
+              <li><strong>Inefficient study loop:</strong> Restarts broad content instead of identifying and practicing the specific step that broke down.</li>
+              <li><strong>Confidence:</strong> Interprets slow progress as evidence that she is “not an accounting person.”</li>
+              <li><strong>Limited feedback:</strong> Needs a low-pressure way to test her reasoning and learn from errors.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h3>Technology Comfort</h3>
+            <p>Moderate to strong. Elena navigates WGU systems comfortably and uses video calls at work. She prefers clear directions and tools she can immediately apply during her next study session.</p>
+          </section>
+
+          <div class="task">Your task: Which Academic Services support or combination of supports would you recommend for Elena? Identify the specific resource, tool, or experience that best fits her needs.</div>
+          <div class="back-row"><button type="button" data-top>Back to section choices</button></div>
+        </div>
+      </details>
+
+      <details id="persona-2">
+        <summary><span class="summary-icon" aria-hidden="true">P2</span>Persona 2: Devin Carter</summary>
+        <div class="panel-content">
+          <div class="persona-head">
+            <div class="portrait">
+              <svg viewBox="0 0 200 200" role="img" aria-label="Illustrated portrait of Devin">
+                <rect width="200" height="200" fill="#d9eef5"/><circle cx="43" cy="35" r="56" fill="#46b1ef" opacity=".35"/><path d="M23 207c6-48 32-72 77-72s71 24 77 72" fill="#275c7a"/><ellipse cx="100" cy="88" rx="43" ry="52" fill="#744c34"/><ellipse cx="100" cy="91" rx="38" ry="45" fill="#a96f4b"/><path d="M59 79c0-34 18-53 43-53 29 0 43 21 42 55-13-10-27-20-43-30-11 12-25 22-42 28z" fill="#1c1716"/><path d="M66 58c7-27 25-39 49-30 17 6 26 21 27 43-23-12-48-18-76-13z" fill="#181414"/><circle cx="86" cy="91" r="3" fill="#201816"/><circle cx="115" cy="91" r="3" fill="#201816"/><path d="M88 111c8 5 16 5 24 0" fill="none" stroke="#63362f" stroke-width="3" stroke-linecap="round"/><path d="M49 179c20-18 36-27 51-27s32 9 52 27" fill="#97e142"/><rect x="134" y="133" width="43" height="51" rx="6" fill="#fff" opacity=".72" transform="rotate(8 155 158)"/>
+              </svg>
+            </div>
+            <div>
+              <p class="persona-label">Student Persona 2</p>
+              <h2>Devin Carter</h2>
+              <p class="program">B.S. Business Management</p>
+              <span class="course">Introductory Accounting Course</span>
+            </div>
+          </div>
+
+          <blockquote>“Accounting isn’t even the only problem. By the time everyone is asleep, I’m exhausted, so I move my study plan to tomorrow. Now I’m behind, and I don’t know how to catch up.”</blockquote>
+
+          <div class="facts">
+            <div class="fact"><span class="fact-label">Age</span><span class="fact-value">31</span></div>
+            <div class="fact"><span class="fact-label">Term</span><span class="fact-value">Second term</span></div>
+            <div class="fact"><span class="fact-label">Occupation</span><span class="fact-value">Distribution shift supervisor</span></div>
+          </div>
+
+          <section class="section">
+            <h3>Background and Story</h3>
+            <p>Devin earned a promotion last year and enrolled at WGU because a bachelor’s degree would qualify him for regional leadership opportunities. He works a rotating schedule and helps care for his father, who has ongoing health needs. Devin completed his first term successfully, but this term his routine has unraveled. Accounting feels intimidating, and being behind in a second course has made every study session feel like a choice about what to neglect.</p>
+          </section>
+
+          <div class="two-col">
+            <section class="mini-panel">
+              <h3>Goals and Needs</h3>
+              <ul>
+                <li>Create a realistic plan around a rotating work schedule.</li>
+                <li>Regain momentum without trying to fix everything at once.</li>
+                <li>Complete accounting within the current term.</li>
+                <li>Feel connected to people who understand the WGU experience.</li>
+              </ul>
+            </section>
+            <section class="mini-panel strengths">
+              <h3>Strengths to Build On</h3>
+              <ul>
+                <li>Successfully completed his first term.</li>
+                <li>Strong leadership and troubleshooting skills at work.</li>
+                <li>Persistent when a goal feels achievable.</li>
+                <li>Supportive family that wants him to finish.</li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="section">
+            <h3>What Devin Is Doing Now</h3>
+            <ul>
+              <li>Plans for long evening study blocks, then skips studying when he cannot complete the entire block.</li>
+              <li>Checks the course several times a week but often spends the available time deciding what to do first.</li>
+              <li>Moves missed study sessions to the next day, creating a growing and discouraging backlog.</li>
+              <li>Reads student community posts occasionally but has never participated because he assumes everyone else is progressing faster.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h3>Pain Points</h3>
+            <ul>
+              <li><strong>Overwhelm:</strong> Sees the entire term as one large problem and struggles to identify a manageable next step.</li>
+              <li><strong>All-or-nothing planning:</strong> Treats a shortened study session as not worth doing.</li>
+              <li><strong>Competing responsibilities:</strong> Work and caregiving demands change from week to week.</li>
+              <li><strong>Isolation:</strong> Has not told anyone at WGU how far behind he feels and is beginning to disengage.</li>
+              <li><strong>Confidence:</strong> Worries that this term proves his first-term success was luck.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h3>Technology Comfort</h3>
+            <p>Moderate. Devin uses scheduling and inventory systems at work and can navigate WGU tools. He is most likely to use a resource when the purpose is clear, the first step is simple, and he knows what to expect.</p>
+          </section>
+
+          <div class="task">Your task: Which Academic Services support or combination of supports would you recommend for Devin? Identify the specific resource, tool, or experience that best fits his needs.</div>
+          <div class="back-row"><button type="button" data-top>Back to section choices</button></div>
+        </div>
+      </details>
+    </div>
+    <footer>WGU School of Business Summit • WSB Student Persona Activity</footer>
+  </main>
+
+  <script>
+    const panels = Array.from(document.querySelectorAll('details'));
+    const openPanel = (id) => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      panels.forEach(panel => { panel.open = panel === target; });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', `#${id}`);
+    };
+
+    panels.forEach(panel => {
+      panel.addEventListener('toggle', () => {
+        if (!panel.open) return;
+        panels.forEach(other => { if (other !== panel) other.open = false; });
+      });
+    });
+
+    document.querySelectorAll('[data-open]').forEach(button => {
+      button.addEventListener('click', () => openPanel(button.dataset.open));
+    });
+
+    document.querySelectorAll('[data-top]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelector('.quick-nav').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const initialId = location.hash.slice(1);
+    if (initialId && document.getElementById(initialId)) openPanel(initialId);
+  </script>
+</body>
+</html>
